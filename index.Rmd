@@ -1,6 +1,6 @@
 ---
 title: "PS270 Final Project"
-author: "Your Name Here"
+author: "Rogan Travis"
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,6 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+I am interested in exploring data related to news viewership and the relation to voting behavior. I've heard that its not as simple as one might think. That being that liberal voters watch liberal news platforms and conservatives viewing conservative platforms. I've read that there is actually a lot of cross viewership which I find interesting.
+
+
