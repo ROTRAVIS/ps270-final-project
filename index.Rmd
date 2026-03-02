@@ -21,7 +21,8 @@ news<-
 read.csv("anes_timeseries_2024_csv_20250808 2/anes_timeseries_2024_csv_20250808.csv")
 ```
 ```{r}
-head(news)
+news|>
+head(5)
 ```
 
 
