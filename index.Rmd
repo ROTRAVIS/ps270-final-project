@@ -13,4 +13,15 @@ output:
 
 I am interested in exploring data related to news viewership and the relation to voting behavior. I've heard that its not as simple as one might think. That being that liberal voters watch liberal news platforms and conservatives viewing conservative platforms. I've read that there is actually a lot of cross viewership which I find interesting.
 
+I want to examine the relationship between political news media and voting behavior. Specifically, I want to analyze the relationship between cross viewership in regards to political news sources. Through this analysis I want to address whether or not there is an ideological difference between those who watch news that is slanted primarily towards their political ideology and those who watch news sources that go against their political ideology. I believe that voters who watch networks that closely align with the political ideology opposite of theirs will vote more moderately compared to those who do not participate in cross-viewership. The explanatory variables in my data would include party affiliation and news networks. The party identification variable is measured as a question asking party identification where 1=strong, 2=not very strong. The news networks variable is measured by asking the respondent to choose news networks they consume with 1=mentioned and 2=not mentioned. The outcome variable in my study will be the variable V241039, which is a poll asking who the voter voted for in the presidential election. The variable is measured 1-6, with each individual value corresponding to a presidential candidate. If I observe a moderate voting behavior amongst those that watch political news media from both sides, this would support my hypothesis. However, if I see no change in voting behavior or even a strengthening of political ideology this would go against my hypothesis. 
+
+```{r}
+library(tidyverse)
+news<-
+read.csv("anes_timeseries_2024_csv_20250808 2/anes_timeseries_2024_csv_20250808.csv")
+```
+```{r}
+head(news)
+```
+
 
