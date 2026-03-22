@@ -20,10 +20,6 @@ library(tidyverse)
 news<-
 read.csv("anes_timeseries_2024_csv_20250808 2/anes_timeseries_2024_csv_20250808.csv")
 ```
-```{r}
-news|>
-head(5)
-```
 
 ```{r}
 first_graph<-news|>
