@@ -25,4 +25,37 @@ news|>
 head(5)
 ```
 
+```{r}
+first_graph<-news|>
+ select("V241025","V241032","V241033", "V241039", "V241040", "V241104", "V241109", "V241179", "V241180", "V241108", "V241113", "V244055", "V244056", "V244057", "V244058", "V244059")|>
+  mutate(party_reg=V241025, dem_caucus_vote=V241032, rep_caucus_vote=V241033, `2024_pres_vote`=V241039, `2024_pref_cand_voted`=V241040, `2020_pres_vote`=V241104, dem_likenes=V241109, harris_iedology_scale=V241179, trump_ideology_scale=V241180, `2016_pres_vote`=V241108, rep_likeness=V241113, tv_programs_watched=V244055, tv_programs_watched2=V244056, tv_programs_watched3=V244057, tv_programs_watched4=V244058, tv_programs_watched5=V244059 )
+```
+```{r}
+first_graph<-first_graph|>
+  select(party_reg, V241025, dem_caucus_vote, rep_caucus_vote, `2024_pres_vote`, `2024_pref_cand_voted`, `2020_pres_vote`, dem_likenes, harris_iedology_scale, trump_ideology_scale, `2016_pres_vote`, rep_likeness, tv_programs_watched, tv_programs_watched2, tv_programs_watched3, tv_programs_watched4, tv_programs_watched5)
+```
 
+```{r}
+first_graph<-first_graph|>
+  mutate(party_reg = case_when(
+party_reg == 2 ~ "Republican",
+party_reg == 1 ~ "Democrat"))|> 
+drop_na(party_reg)|>
+mutate(`2020_pres_vote`= case_when(
+`2020_pres_vote`== 1 ~ "Joe Biden",
+`2020_pres_vote`== 2 ~ "Donald Trump", 
+`2020_pres_vote`==5~"Other"))|>
+  drop_na(`2020_pres_vote`)
+```
+```{r}
+graph<-first_graph|>
+  mutate(tv_programs_watched=case_when(tv_programs_watched==1~"Fox", tv_programs_watched==2~"Fox", tv_programs_watched==5~"Fox", tv_programs_watched==6~"Fox", tv_programs_watched==7~"Fox", tv_programs_watched==10~"Fox", tv_programs_watched==27~"Fox", tv_programs_watched==19~"CBS", tv_programs_watched==11~"CBS",tv_programs_watched==22~"CBS",tv_programs_watched==19~"CBS", tv_programs_watched==11~"CBS",tv_programs_watched==3~"MSNBC", tv_programs_watched==4~"MSNBC", tv_programs_watched==28~"MSNBC", tv_programs_watched==29~"MSNBC", tv_programs_watched==30~"MSNBC", tv_programs_watched==8~"CNN", tv_programs_watched==14~"CNN", tv_programs_watched==17~"CNN", tv_programs_watched==18~"CNN", tv_programs_watched==12~"ABC", tv_programs_watched==25~"ABC", tv_programs_watched==22~"ABC", tv_programs_watched==13~"NBC",tv_programs_watched==23~"NBC", tv_programs_watched==26~"NBC"))
+```
+
+```{r}
+graph|>
+  drop_na(tv_programs_watched)|>
+  ggplot(aes(x=tv_programs_watched, fill=party_reg))+geom_bar()+
+  facet_wrap(~ party_reg)+labs(x="TV Programs", y="Count", title="Distribution of Viewership Between Repulicans and Democrats")
+  
+```
