@@ -56,24 +56,15 @@ graph|>
   
 ```
 ```{r}
-first_graph|>
-  count(`2020_pres_vote`)
-```
-```{r}
 graph<-graph|>
   mutate(tv_programs_watched2=case_when(tv_programs_watched2==1~"Fox", tv_programs_watched2==2~"Fox", tv_programs_watched2==5~"Fox", tv_programs_watched2==6~"Fox", tv_programs_watched2==7~"Fox", tv_programs_watched2==10~"Fox", tv_programs_watched2==27~"Fox", tv_programs_watched2==19~"CBS", tv_programs_watched2==11~"CBS",tv_programs_watched2==22~"CBS",tv_programs_watched2==19~"CBS", tv_programs_watched2==11~"CBS",tv_programs_watched2==3~"MSNBC", tv_programs_watched2==4~"MSNBC", tv_programs_watched2==28~"MSNBC", tv_programs_watched2==29~"MSNBC", tv_programs_watched2==30~"MSNBC", tv_programs_watched2==8~"CNN", tv_programs_watched2==14~"CNN", tv_programs_watched2==17~"CNN", tv_programs_watched2==18~"CNN", tv_programs_watched2==12~"ABC", tv_programs_watched2==25~"ABC", tv_programs_watched2==22~"ABC", tv_programs_watched2==13~"NBC",tv_programs_watched2==23~"NBC", tv_programs_watched2==26~"NBC"))|>
    mutate(tv_programs_watched3=case_when(tv_programs_watched3==1~"Fox", tv_programs_watched3==2~"Fox", tv_programs_watched3==5~"Fox", tv_programs_watched3==6~"Fox", tv_programs_watched3==7~"Fox", tv_programs_watched3==10~"Fox", tv_programs_watched3==27~"Fox", tv_programs_watched3==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==22~"CBS",tv_programs_watched3==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==3~"MSNBC", tv_programs_watched3==4~"MSNBC", tv_programs_watched3==28~"MSNBC", tv_programs_watched3==29~"MSNBC", tv_programs_watched3==30~"MSNBC", tv_programs_watched3==8~"CNN", tv_programs_watched3==14~"CNN", tv_programs_watched3==17~"CNN", tv_programs_watched3==18~"CNN", tv_programs_watched3==12~"ABC", tv_programs_watched3==25~"ABC", tv_programs_watched3==22~"ABC", tv_programs_watched3==13~"NBC",tv_programs_watched3==23~"NBC", tv_programs_watched3==26~"NBC"))
 
 ```
-```{r}
-graph<-graph|>
-  select(-tv_programs_watched4, -tv_programs_watched5)
-graph
-```
+
 ```{r}
 graph<-graph|>
   mutate(tv_rating=case_when(tv_programs_watched=="Fox"~5, tv_programs_watched=="MSNBC"~1, tv_programs_watched=="NBC"~2, tv_programs_watched=="ABC"~2, tv_programs_watched=="CNN"~2,tv_programs_watched=="CBS"~2))
-graph
 ```
 
 ```{r}
@@ -88,29 +79,39 @@ graph<-graph|>
 ```
 
 
-```{r}
-graph|>
-  ggplot(aes(x=tv_rating_final))+geom_histogram(aes(y=after_stat(density)))
-```
-```{r}
-  graph<-graph|>
-  mutate(across(c(tv_rating, tv_rating2, tv_rating3, tv_rating_final), ~replace_na(.x, 0)))
-```
 
 ```{r}
 graph<-graph|>
   mutate(tv_total=tv_rating+tv_rating2+tv_rating3)|>
   mutate(avg_tv=tv_total/3)
-graph
 ```
 ```{r}
 graph<-graph|>
-  mutate(tv_bias=case_when(avg_tv<=1.67~"Liberal Bias", avg_tv>1.67 & avg_tv<3.34~"Moderate", avg_tv>3.34~"Conservative Bias"))
-graph
+  mutate(tv_bias=case_when(avg_tv<=1.67~"Liberal Bias", avg_tv>1.67 & avg_tv<3.34~"Moderate", avg_tv>=3.34~"Conservative Bias"), na.rm=T)
+```
+```{r}
+  graph<-graph|>
+mutate(across(c(tv_rating, tv_rating2, tv_rating3), ~replace_na(.x, 0)))
 ```
 
+
 ```{r}
-milestone4|>
-  knitr::kable(caption="Average Vote Based on News Consumption (1=Trump, 2=Biden)", col.names = c("News Consumption Bias", "Democrat", "Republican"))
+milestone4<-graph|>
+  mutate(pres2020vote=case_when(`2020_pres_vote`=="Donald Trump"~1,`2020_pres_vote`=="Joe Biden"~2, `2020_pres_vote`=="Other"~0))|>
+  group_by(tv_bias, party_reg)|>
+  summarise(mean_vote=mean(pres2020vote))|>
+  pivot_wider(names_from=party_reg, values_from = mean_vote)
+milestone4
 ```
-Based on this intial graph, it seems there may be difference between the two partys. When the average news consumption bias for Republicans was liberal, they voted on average more for Trump then when their news consumption average was either moderate or conservative. However, when the average news consumptin bias for Democrats was conservative, they voted on average less for Biden than they did when their news consumption average was either moderate or liberal. 
+```{r}
+milestone4_nona <- milestone4|>
+  filter(tv_bias != "NA")
+```
+
+
+```{r}
+  knitr::kable(milestone4_nona, caption="Average Vote Based on News Consumption (1=Trump, 2=Biden)", col.names = c("News Consumption Bias", "Democrat", "Republican"))
+
+```
+
+Based on this intial graph, it seems there may be difference between the two partys. When the average news consumption bias for Republicans was liberal, they voted on average more for Trump then when their news consumption average was conservative and less than when it was moderate. However, when the average news consumption bias for Democrats was conservative, they voted on average less for Biden than they did when their news consumption average was either moderate or liberal. 

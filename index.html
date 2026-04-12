@@ -1596,10 +1596,116 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="624" /></p>
 </div>
-<ul>
-<li></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_programs_watched2<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>2</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>5</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>6</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>7</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>10</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>27</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>19</span><span class='op'>~</span><span class='st'>"CBS"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>11</span><span class='op'>~</span><span class='st'>"CBS"</span>,<span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>22</span><span class='op'>~</span><span class='st'>"CBS"</span>,<span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>19</span><span class='op'>~</span><span class='st'>"CBS"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>11</span><span class='op'>~</span><span class='st'>"CBS"</span>,<span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>3</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>4</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>28</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>29</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>30</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>8</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>14</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>17</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>18</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>12</span><span class='op'>~</span><span class='st'>"ABC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>25</span><span class='op'>~</span><span class='st'>"ABC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>22</span><span class='op'>~</span><span class='st'>"ABC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>13</span><span class='op'>~</span><span class='st'>"NBC"</span>,<span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>23</span><span class='op'>~</span><span class='st'>"NBC"</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='fl'>26</span><span class='op'>~</span><span class='st'>"NBC"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_programs_watched3<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>2</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>5</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>6</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>7</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>10</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>27</span><span class='op'>~</span><span class='st'>"Fox"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>19</span><span class='op'>~</span><span class='st'>"CBS"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>11</span><span class='op'>~</span><span class='st'>"CBS"</span>,<span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>22</span><span class='op'>~</span><span class='st'>"CBS"</span>,<span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>19</span><span class='op'>~</span><span class='st'>"CBS"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>11</span><span class='op'>~</span><span class='st'>"CBS"</span>,<span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>3</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>4</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>28</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>29</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>30</span><span class='op'>~</span><span class='st'>"MSNBC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>8</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>14</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>17</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>18</span><span class='op'>~</span><span class='st'>"CNN"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>12</span><span class='op'>~</span><span class='st'>"ABC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>25</span><span class='op'>~</span><span class='st'>"ABC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>22</span><span class='op'>~</span><span class='st'>"ABC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>13</span><span class='op'>~</span><span class='st'>"NBC"</span>,<span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>23</span><span class='op'>~</span><span class='st'>"NBC"</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='fl'>26</span><span class='op'>~</span><span class='st'>"NBC"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_rating<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>tv_programs_watched</span><span class='op'>==</span><span class='st'>"Fox"</span><span class='op'>~</span><span class='fl'>5</span>, <span class='va'>tv_programs_watched</span><span class='op'>==</span><span class='st'>"MSNBC"</span><span class='op'>~</span><span class='fl'>1</span>, <span class='va'>tv_programs_watched</span><span class='op'>==</span><span class='st'>"NBC"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>tv_programs_watched</span><span class='op'>==</span><span class='st'>"ABC"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>tv_programs_watched</span><span class='op'>==</span><span class='st'>"CNN"</span><span class='op'>~</span><span class='fl'>2</span>,<span class='va'>tv_programs_watched</span><span class='op'>==</span><span class='st'>"CBS"</span><span class='op'>~</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`2020_pres_vote`</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean_tv_rating<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>tv_rating</span>, na.rm<span class='op'>=</span><span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 3 × 2
+  `2020_pres_vote` mean_tv_rating
+  &lt;chr&gt;                     &lt;dbl&gt;
+1 Donald Trump               2.64
+2 Joe Biden                  2.68
+3 Other                      4.5 </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_rating2<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='st'>"Fox"</span><span class='op'>~</span><span class='fl'>5</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='st'>"MSNBC"</span><span class='op'>~</span><span class='fl'>1</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='st'>"NBC"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='st'>"ABC"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='st'>"CNN"</span><span class='op'>~</span><span class='fl'>2</span>,<span class='va'>tv_programs_watched2</span><span class='op'>==</span><span class='st'>"CBS"</span><span class='op'>~</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_rating3<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='st'>"Fox"</span><span class='op'>~</span><span class='fl'>5</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='st'>"MSNBC"</span><span class='op'>~</span><span class='fl'>1</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='st'>"NBC"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='st'>"ABC"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='st'>"CNN"</span><span class='op'>~</span><span class='fl'>2</span>,<span class='va'>tv_programs_watched3</span><span class='op'>==</span><span class='st'>"CBS"</span><span class='op'>~</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_total<span class='op'>=</span><span class='va'>tv_rating</span><span class='op'>+</span><span class='va'>tv_rating2</span><span class='op'>+</span><span class='va'>tv_rating3</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>avg_tv<span class='op'>=</span><span class='va'>tv_total</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>graph</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>tv_bias<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>avg_tv</span><span class='op'>&lt;=</span><span class='fl'>1.67</span><span class='op'>~</span><span class='st'>"Liberal Bias"</span>, <span class='va'>avg_tv</span><span class='op'>&gt;</span><span class='fl'>1.67</span> <span class='op'>&amp;</span> <span class='va'>avg_tv</span><span class='op'>&lt;</span><span class='fl'>3.34</span><span class='op'>~</span><span class='st'>"Moderate"</span>, <span class='va'>avg_tv</span><span class='op'>&gt;=</span><span class='fl'>3.34</span><span class='op'>~</span><span class='st'>"Conservative Bias"</span><span class='op'>)</span>, na.rm<span class='op'>=</span><span class='cn'>T</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='va'>graph</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>tv_rating</span>, <span class='va'>tv_rating2</span>, <span class='va'>tv_rating3</span><span class='op'>)</span>, <span class='op'>~</span><span class='fu'><a href='https://tidyr.tidyverse.org/reference/replace_na.html'>replace_na</a></span><span class='op'>(</span><span class='va'>.x</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>milestone4</span><span class='op'>&lt;-</span><span class='va'>graph</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>pres2020vote<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>`2020_pres_vote`</span><span class='op'>==</span><span class='st'>"Donald Trump"</span><span class='op'>~</span><span class='fl'>1</span>,<span class='va'>`2020_pres_vote`</span><span class='op'>==</span><span class='st'>"Joe Biden"</span><span class='op'>~</span><span class='fl'>2</span>, <span class='va'>`2020_pres_vote`</span><span class='op'>==</span><span class='st'>"Other"</span><span class='op'>~</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>tv_bias</span>, <span class='va'>party_reg</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>mean_vote<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>pres2020vote</span><span class='op'>)</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from<span class='op'>=</span><span class='va'>party_reg</span>, values_from <span class='op'>=</span> <span class='va'>mean_vote</span><span class='op'>)</span></span>
+<span><span class='va'>milestone4</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4 × 3
+# Groups:   tv_bias [4]
+  tv_bias           Democrat Republican
+  &lt;chr&gt;                &lt;dbl&gt;      &lt;dbl&gt;
+1 Conservative Bias     1.90       1.21
+2 Liberal Bias          1.91       1.17
+3 Moderate              1.94       1.11
+4 &lt;NA&gt;                  1.93       1.12</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>milestone4_nona</span> <span class='op'>&lt;-</span> <span class='va'>milestone4</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>tv_bias</span> <span class='op'>!=</span> <span class='st'>"NA"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>milestone4_nona</span>, caption<span class='op'>=</span><span class='st'>"Average Vote Based on News Consumption (1=Trump, 2=Biden)"</span>, col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"News Consumption Bias"</span>, <span class='st'>"Democrat"</span>, <span class='st'>"Republican"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<caption><span id="tab:unnamed-chunk-16">Table 1: </span>Average Vote Based on News Consumption (1=Trump, 2=Biden)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">News Consumption Bias</th>
+<th style="text-align: right;">Democrat</th>
+<th style="text-align: right;">Republican</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Conservative Bias</td>
+<td style="text-align: right;">1.904110</td>
+<td style="text-align: right;">1.208333</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Liberal Bias</td>
+<td style="text-align: right;">1.910112</td>
+<td style="text-align: right;">1.169811</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: right;">1.943478</td>
+<td style="text-align: right;">1.111111</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Based on this intial graph, it seems there may be difference between the two partys. When the average news consumption bias for Republicans was liberal, they voted on average more for Trump then when their news consumption average was conservative and less than when it was moderate. However, when the average news consumption bias for Democrats was conservative, they voted on average less for Biden than they did when their news consumption average was either moderate or liberal.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
