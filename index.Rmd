@@ -99,11 +99,6 @@ graph|>
 
 ```{r}
 graph<-graph|>
-  select(-tv_rating_final, -mean_tv1)
-```
-
-```{r}
-graph<-graph|>
   mutate(tv_total=tv_rating+tv_rating2+tv_rating3)|>
   mutate(avg_tv=tv_total/3)
 graph
@@ -113,18 +108,7 @@ graph<-graph|>
   mutate(tv_bias=case_when(avg_tv<=1.67~"Liberal Bias", avg_tv>1.67 & avg_tv<3.34~"Moderate", avg_tv>3.34~"Conservative Bias"))
 graph
 ```
-```{r}
-graph|>
-  ggplot(aes(x=tv_bias))+geom_bar()
-```
-```{r}
-milestone4<-graph|>
-  mutate(presvote2020=case_when(`2020_pres_vote`=="Donald Trump"~1,`2020_pres_vote`=="Joe Biden"~2, `2020_pres_vote`=="Other"~3 ))|>
-  group_by(party_reg, tv_bias)|>
-  summarize(mean2020vote=mean(presvote2020))|>
-  pivot_wider(names_from = party_reg, values_from = mean2020vote)
-milestone4
-```
+
 ```{r}
 milestone4|>
   knitr::kable(caption="Average Vote Based on News Consumption (1=Trump, 2=Biden)", col.names = c("News Consumption Bias", "Democrat", "Republican"))
