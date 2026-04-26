@@ -13,7 +13,9 @@ output:
 
 I am interested in exploring data related to news viewership and the relation to voting behavior. I've heard that its not as simple as one might think. That being that liberal voters watch liberal news platforms and conservatives viewing conservative platforms. I've read that there is actually a lot of cross viewership which I find interesting.
 
-I want to examine the relationship between political news media and voting behavior. Specifically, I want to analyze the relationship between cross viewership in regards to political news sources. Through this analysis I want to address whether or not there is an ideological difference between those who watch news that is slanted primarily towards their political ideology and those who watch news sources that go against their political ideology. I believe that voters who watch networks that closely align with the political ideology opposite of theirs will vote more moderately compared to those who do not participate in cross-viewership. The explanatory variables in my data would include party affiliation and news networks. The party identification variable is measured as a question asking party identification where 1=strong, 2=not very strong. The news networks variable is measured by asking the respondent to choose news networks they consume with 1=mentioned and 2=not mentioned. The outcome variable in my study will be the variable V241039, which is a poll asking who the voter voted for in the presidential election. The variable is measured 1-6, with each individual value corresponding to a presidential candidate. If I observe a moderate voting behavior amongst those that watch political news media from both sides, this would support my hypothesis. However, if I see no change in voting behavior or even a strengthening of political ideology this would go against my hypothesis. 
+I am interested in the examining the relationship between political news media consumption and voting behavior. Specifically, I want to analyze the relationship between two news networks, MSNBC and Fox. I believe that Republican voters who watch both Fox and MSNBC will be more likely to vote liberally than republicans who only consume Fox. Likewise, I believe that Democrats who watch both Fox and MSNBC will be more likely to vote conservatively than democrats who only watch MSNBC. The outcome variable in my study will be the respondents 2020 election choice (**pres2020vote**), with 1 equaling **Joe Biden** and 2 equaling **Donald Trump**.  The independent variable in my study is the media consumption (**media**) of each respondent 
+
+I want to examine the relationship between political news media consumption and voting behavior. Specifically, I want to analyze the relationship between cross viewership in regards to political news sources. II believe that voters who watch networks that closely align with the political ideology opposite of theirs will vote more moderately compared to those who do not participate in cross-viewership. The explanatory variables in my data would include party affiliation and news networks. The party identification variable is measured as a question asking party identification where 1=strong, 2=not very strong. The news networks variable is measured by asking the respondent to choose news networks they consumed with 1=mentioned and 2=not mentioned. The outcome variable in my study will be the variable V241039, which is a poll asking who the voter voted for in the 2020 presidential election. The variable is measured 1-6, with each individual value corresponding to a presidential candidate. If I observe a moderate voting behavior amongst those that watch political news media from both sides, this would support my hypothesis. However, if I see no change in voting behavior or even a strengthening of political ideology this would go against my hypothesis. 
 
 ```{r}
 library(tidyverse)
@@ -21,97 +23,134 @@ news<-
 read.csv("anes_timeseries_2024_csv_20250808 2/anes_timeseries_2024_csv_20250808.csv")
 ```
 
+
+
+
+
 ```{r}
-first_graph<-news|>
+news<-news|>
  select("V241025","V241032","V241033", "V241039", "V241040", "V241104", "V241109", "V241179", "V241180", "V241108", "V241113", "V244055", "V244056", "V244057", "V244058", "V244059")|>
   mutate(party_reg=V241025, dem_caucus_vote=V241032, rep_caucus_vote=V241033, `2024_pres_vote`=V241039, `2024_pref_cand_voted`=V241040, `2020_pres_vote`=V241104, dem_likenes=V241109, harris_iedology_scale=V241179, trump_ideology_scale=V241180, `2016_pres_vote`=V241108, rep_likeness=V241113, tv_programs_watched=V244055, tv_programs_watched2=V244056, tv_programs_watched3=V244057, tv_programs_watched4=V244058, tv_programs_watched5=V244059 )
 ```
+
 ```{r}
-first_graph<-first_graph|>
-  select(party_reg, V241025, dem_caucus_vote, rep_caucus_vote, `2024_pres_vote`, `2024_pref_cand_voted`, `2020_pres_vote`, dem_likenes, harris_iedology_scale, trump_ideology_scale, `2016_pres_vote`, rep_likeness, tv_programs_watched, tv_programs_watched2, tv_programs_watched3, tv_programs_watched4, tv_programs_watched5)
+news<-news|>
+select(party_reg, `2020_pres_vote`, tv_programs_watched, tv_programs_watched2, tv_programs_watched3, tv_programs_watched4, tv_programs_watched5)
 ```
 
 ```{r}
-first_graph<-first_graph|>
-  mutate(party_reg = case_when(
-party_reg == 2 ~ "Republican",
-party_reg == 1 ~ "Democrat"))|> 
-drop_na(party_reg)|>
-mutate(`2020_pres_vote`= case_when(
-`2020_pres_vote`== 1 ~ "Joe Biden",
-`2020_pres_vote`== 2 ~ "Donald Trump", 
-`2020_pres_vote`==5~"Other"))|>
-  drop_na(`2020_pres_vote`)
-```
-```{r}
-graph<-first_graph|>
-  mutate(tv_programs_watched=case_when(tv_programs_watched==1~"Fox", tv_programs_watched==2~"Fox", tv_programs_watched==5~"Fox", tv_programs_watched==6~"Fox", tv_programs_watched==7~"Fox", tv_programs_watched==10~"Fox", tv_programs_watched==27~"Fox", tv_programs_watched==19~"CBS", tv_programs_watched==11~"CBS",tv_programs_watched==22~"CBS",tv_programs_watched==19~"CBS", tv_programs_watched==11~"CBS",tv_programs_watched==3~"MSNBC", tv_programs_watched==4~"MSNBC", tv_programs_watched==28~"MSNBC", tv_programs_watched==29~"MSNBC", tv_programs_watched==30~"MSNBC", tv_programs_watched==8~"CNN", tv_programs_watched==14~"CNN", tv_programs_watched==17~"CNN", tv_programs_watched==18~"CNN", tv_programs_watched==12~"ABC", tv_programs_watched==25~"ABC", tv_programs_watched==22~"ABC", tv_programs_watched==13~"NBC",tv_programs_watched==23~"NBC", tv_programs_watched==26~"NBC"))
+news<-news|>
+mutate(pres2020vote= case_when(
+`2020_pres_vote`== 1~"Joe Biden",
+`2020_pres_vote`== 2~"Donald Trump"))|>
+  drop_na(pres2020vote)
 ```
 
+
 ```{r}
-graph|>
-  drop_na(tv_programs_watched)|>
-  ggplot(aes(x=tv_programs_watched, fill=party_reg))+geom_bar()+
-  facet_wrap(~ party_reg)+labs(x="TV Programs", y="Count", title="Distribution of Viewership Between Repulicans and Democrats")
-  
+news|>
+  ggplot(aes(x=pres2020vote, fill = pres2020vote))+geom_bar()+labs(title="Distribution of 2020 Presidential Vote", y="Count", x="Voter Choice")+theme_minimal()+theme(legend.position = "none")
 ```
 ```{r}
-graph<-graph|>
+news<-news|>
+  mutate(tv_programs_watched=case_when(tv_programs_watched==1~"Fox", tv_programs_watched==2~"Fox", tv_programs_watched==5~"Fox", tv_programs_watched==6~"Fox", tv_programs_watched==7~"Fox", tv_programs_watched==10~"Fox", tv_programs_watched==27~"Fox", tv_programs_watched==19~"CBS", tv_programs_watched==11~"CBS",tv_programs_watched==22~"CBS",tv_programs_watched==19~"CBS", tv_programs_watched==11~"CBS",tv_programs_watched==3~"MSNBC", tv_programs_watched==4~"MSNBC", tv_programs_watched==28~"MSNBC", tv_programs_watched==29~"MSNBC", tv_programs_watched==30~"MSNBC", tv_programs_watched==8~"CNN", tv_programs_watched==14~"CNN", tv_programs_watched==17~"CNN", tv_programs_watched==18~"CNN", tv_programs_watched==12~"ABC", tv_programs_watched==25~"ABC", tv_programs_watched==22~"ABC", tv_programs_watched==13~"NBC",tv_programs_watched==23~"NBC", tv_programs_watched==26~"NBC"))|>
   mutate(tv_programs_watched2=case_when(tv_programs_watched2==1~"Fox", tv_programs_watched2==2~"Fox", tv_programs_watched2==5~"Fox", tv_programs_watched2==6~"Fox", tv_programs_watched2==7~"Fox", tv_programs_watched2==10~"Fox", tv_programs_watched2==27~"Fox", tv_programs_watched2==19~"CBS", tv_programs_watched2==11~"CBS",tv_programs_watched2==22~"CBS",tv_programs_watched2==19~"CBS", tv_programs_watched2==11~"CBS",tv_programs_watched2==3~"MSNBC", tv_programs_watched2==4~"MSNBC", tv_programs_watched2==28~"MSNBC", tv_programs_watched2==29~"MSNBC", tv_programs_watched2==30~"MSNBC", tv_programs_watched2==8~"CNN", tv_programs_watched2==14~"CNN", tv_programs_watched2==17~"CNN", tv_programs_watched2==18~"CNN", tv_programs_watched2==12~"ABC", tv_programs_watched2==25~"ABC", tv_programs_watched2==22~"ABC", tv_programs_watched2==13~"NBC",tv_programs_watched2==23~"NBC", tv_programs_watched2==26~"NBC"))|>
-   mutate(tv_programs_watched3=case_when(tv_programs_watched3==1~"Fox", tv_programs_watched3==2~"Fox", tv_programs_watched3==5~"Fox", tv_programs_watched3==6~"Fox", tv_programs_watched3==7~"Fox", tv_programs_watched3==10~"Fox", tv_programs_watched3==27~"Fox", tv_programs_watched3==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==22~"CBS",tv_programs_watched3==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==3~"MSNBC", tv_programs_watched3==4~"MSNBC", tv_programs_watched3==28~"MSNBC", tv_programs_watched3==29~"MSNBC", tv_programs_watched3==30~"MSNBC", tv_programs_watched3==8~"CNN", tv_programs_watched3==14~"CNN", tv_programs_watched3==17~"CNN", tv_programs_watched3==18~"CNN", tv_programs_watched3==12~"ABC", tv_programs_watched3==25~"ABC", tv_programs_watched3==22~"ABC", tv_programs_watched3==13~"NBC",tv_programs_watched3==23~"NBC", tv_programs_watched3==26~"NBC"))
-
-```
-
-```{r}
-graph<-graph|>
-  mutate(tv_rating=case_when(tv_programs_watched=="Fox"~5, tv_programs_watched=="MSNBC"~1, tv_programs_watched=="NBC"~2, tv_programs_watched=="ABC"~2, tv_programs_watched=="CNN"~2,tv_programs_watched=="CBS"~2))
-```
-
-```{r}
-graph|>
-  group_by(`2020_pres_vote`)|>
-  summarize(mean_tv_rating=mean(tv_rating, na.rm=T))
+   mutate(tv_programs_watched3=case_when(tv_programs_watched3==1~"Fox", tv_programs_watched3==2~"Fox", tv_programs_watched3==5~"Fox", tv_programs_watched3==6~"Fox", tv_programs_watched3==7~"Fox", tv_programs_watched3==10~"Fox", tv_programs_watched3==27~"Fox", tv_programs_watched3==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==22~"CBS",tv_programs_watched3==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==3~"MSNBC", tv_programs_watched3==4~"MSNBC", tv_programs_watched3==28~"MSNBC", tv_programs_watched3==29~"MSNBC", tv_programs_watched3==30~"MSNBC", tv_programs_watched3==8~"CNN", tv_programs_watched3==14~"CNN", tv_programs_watched3==17~"CNN", tv_programs_watched3==18~"CNN", tv_programs_watched3==12~"ABC", tv_programs_watched3==25~"ABC", tv_programs_watched3==22~"ABC", tv_programs_watched3==13~"NBC",tv_programs_watched3==23~"NBC", tv_programs_watched3==26~"NBC"))|>
+  mutate(tv_programs_watched4=case_when(tv_programs_watched4==1~"Fox", tv_programs_watched4==2~"Fox", tv_programs_watched4==5~"Fox", tv_programs_watched4==6~"Fox", tv_programs_watched4==7~"Fox", tv_programs_watched4==10~"Fox", tv_programs_watched4==27~"Fox", tv_programs_watched4==19~"CBS", tv_programs_watched4==11~"CBS",tv_programs_watched4==22~"CBS",tv_programs_watched4==19~"CBS", tv_programs_watched4==11~"CBS",tv_programs_watched4==3~"MSNBC", tv_programs_watched4==4~"MSNBC", tv_programs_watched4==28~"MSNBC", tv_programs_watched4==29~"MSNBC", tv_programs_watched4==30~"MSNBC", tv_programs_watched4==8~"CNN", tv_programs_watched4==14~"CNN", tv_programs_watched4==17~"CNN", tv_programs_watched4==18~"CNN", tv_programs_watched4==12~"ABC", tv_programs_watched4==25~"ABC", tv_programs_watched4==22~"ABC", tv_programs_watched4==13~"NBC",tv_programs_watched4==23~"NBC", tv_programs_watched4==26~"NBC"))|>
+  mutate(tv_programs_watched5=case_when(tv_programs_watched5==1~"Fox", tv_programs_watched5==2~"Fox", tv_programs_watched5==5~"Fox", tv_programs_watched5==6~"Fox", tv_programs_watched5==7~"Fox", tv_programs_watched5==10~"Fox", tv_programs_watched5==27~"Fox", tv_programs_watched5==19~"CBS", tv_programs_watched5==11~"CBS",tv_programs_watched5==22~"CBS",tv_programs_watched5==19~"CBS", tv_programs_watched3==11~"CBS",tv_programs_watched3==3~"MSNBC", tv_programs_watched5==4~"MSNBC", tv_programs_watched5==28~"MSNBC", tv_programs_watched5==29~"MSNBC", tv_programs_watched5==30~"MSNBC", tv_programs_watched5==8~"CNN", tv_programs_watched5==14~"CNN", tv_programs_watched5==17~"CNN", tv_programs_watched5==18~"CNN", tv_programs_watched5==12~"ABC", tv_programs_watched5==25~"ABC", tv_programs_watched5==22~"ABC", tv_programs_watched5==13~"NBC",tv_programs_watched5==23~"NBC", tv_programs_watched5==26~"NBC"))
 ```
 ```{r}
-graph<-graph|>
-  mutate(tv_rating2=case_when(tv_programs_watched2=="Fox"~5, tv_programs_watched2=="MSNBC"~1, tv_programs_watched2=="NBC"~2, tv_programs_watched2=="ABC"~2, tv_programs_watched2=="CNN"~2,tv_programs_watched2=="CBS"~2))|>
-  mutate(tv_rating3=case_when(tv_programs_watched3=="Fox"~5, tv_programs_watched3=="MSNBC"~1, tv_programs_watched3=="NBC"~2, tv_programs_watched3=="ABC"~2, tv_programs_watched3=="CNN"~2,tv_programs_watched3=="CBS"~2))
-```
-
-
-
-```{r}
-graph<-graph|>
-  mutate(tv_total=tv_rating+tv_rating2+tv_rating3)|>
-  mutate(avg_tv=tv_total/3)
+news<-news|>
+    mutate(MSNBC = case_when((tv_programs_watched %in% "MSNBC" | tv_programs_watched2  %in% "MSNBC" | tv_programs_watched3  %in% "MSNBC" | tv_programs_watched4  %in% "MSNBC" |tv_programs_watched5  %in% "MSNBC") & !(tv_programs_watched  %in% "Fox" | tv_programs_watched2  %in% "Fox" | tv_programs_watched3  %in% "Fox" | tv_programs_watched4  %in% "Fox" | tv_programs_watched5  %in% "Fox") ~ 1))|>
+  mutate(
+    FOX = case_when((tv_programs_watched %in% "Fox" | tv_programs_watched2  %in% "Fox" | tv_programs_watched3  %in% "Fox" | tv_programs_watched4  %in% "Fox" |tv_programs_watched5  %in% "Fox") & !(tv_programs_watched  %in% "MSNBC" | tv_programs_watched2  %in% "MSNBC" | tv_programs_watched3  %in% "MSNBC" | tv_programs_watched4  %in% "MSNBC" | tv_programs_watched5  %in% "MSNBC")~1))|>
+   mutate(
+    BOTH = case_when((tv_programs_watched  %in% "MSNBC" | tv_programs_watched2  %in% "MSNBC" | tv_programs_watched3  %in% "MSNBC" | tv_programs_watched4  %in% "MSNBC" | tv_programs_watched5  %in% "MSNBC") & (tv_programs_watched  %in% "Fox" | tv_programs_watched2  %in% "Fox" | tv_programs_watched3  %in% "Fox" | tv_programs_watched4  %in% "Fox" | tv_programs_watched5  %in% "Fox") ~ 1))|>
+  mutate(
+    NEITHER = case_when(!(tv_programs_watched  %in% "MSNBC" | tv_programs_watched2  %in% "MSNBC" | tv_programs_watched3  %in% "MSNBC" | tv_programs_watched4  %in% "MSNBC" | tv_programs_watched5  %in% "MSNBC") & !(tv_programs_watched  %in% "Fox" | tv_programs_watched2  %in% "Fox" | tv_programs_watched3  %in% "Fox" | tv_programs_watched4  %in% "Fox" | tv_programs_watched5  %in% "Fox") ~ 1))
 ```
 ```{r}
-graph<-graph|>
-  mutate(tv_bias=case_when(avg_tv<=1.67~"Liberal Bias", avg_tv>1.67 & avg_tv<3.34~"Moderate", avg_tv>=3.34~"Conservative Bias"), na.rm=T)
-```
-```{r}
-  graph<-graph|>
-mutate(across(c(tv_rating, tv_rating2, tv_rating3), ~replace_na(.x, 0)))
+news<-news|>
+mutate(media=case_when(FOX==1~"Fox Only", MSNBC==1~"MSNBC Only", BOTH==1~"MSNBC/FOX", NEITHER==1~"NEITHER"))
 ```
 
 
 ```{r}
-milestone4<-graph|>
-  mutate(pres2020vote=case_when(`2020_pres_vote`=="Donald Trump"~1,`2020_pres_vote`=="Joe Biden"~2, `2020_pres_vote`=="Other"~0))|>
-  group_by(tv_bias, party_reg)|>
-  summarise(mean_vote=mean(pres2020vote))|>
-  pivot_wider(names_from=party_reg, values_from = mean_vote)
-milestone4
+cleannews<-news|>
+  select(-tv_programs_watched, -tv_programs_watched2, -tv_programs_watched3, -tv_programs_watched4, -tv_programs_watched5)
 ```
 ```{r}
-milestone4_nona <- milestone4|>
-  filter(tv_bias != "NA")
+cleannews<-cleannews|>
+  mutate(party=case_when(party_reg==1~"Democrat", party_reg==2~"Republican"))|>
+  drop_na(party)
+```
+
+```{r}
+cleannews<-cleannews|>
+  mutate(vote=case_when(`2020_pres_vote`==2~0, `2020_pres_vote`==1~1))
+```
+
+```{r}
+republican<-cleannews|>
+  filter(party=="Republican")
+```
+
+```{r}
+democrat<-cleannews|>
+  filter(party=="Democrat")
+```
+
+```{r}
+republican_lm<-lm(data = republican, vote~media)
+```
+```{r}
+library(broom)
+```
+
+```{r}
+rep_lm_clean<-tidy(republican_lm)|>
+  select(term, estimate, p.value)|>
+  knitr::kable(caption="Effect of Media Consumption on Republican Voters", digits=3, col.names = c("Variable", "Estimate", "P-Value"))
 ```
 
 
 ```{r}
-  knitr::kable(milestone4_nona, caption="Average Vote Based on News Consumption (1=Trump, 2=Biden)", col.names = c("News Consumption Bias", "Democrat", "Republican"))
-
+democrat_lm<-lm(data=democrat, vote~media)
+```
+```{r}
+dem_lm_clean<-tidy(democrat_lm)|>
+  select(term, estimate, p.value)|>
+  knitr::kable(caption="Effect of Media Consumption on Democrat Voters", digits=3, col.names = c("Variable", "Estimate", "P-Value"))
 ```
 
-Based on this intial graph, it seems there may be difference between the two partys. When the average news consumption bias for Republicans was liberal, they voted on average more for Trump then when their news consumption average was conservative and less than when it was moderate. However, when the average news consumption bias for Democrats was conservative, they voted on average less for Biden than they did when their news consumption average was either moderate or liberal. 
+```{r}
+rep_lm_clean
+```
+```{r}
+dem_lm_clean
+```
+
+```{r}
+ggplot(data=cleannews, aes(x=media, fill=pres2020vote))+geom_bar(position="dodge")+facet_wrap(~party)+theme_minimal()+theme(axis.text.x = element_text(angle = 45, hjust = 1))+labs(title="2020 Vote Choice by Media Consumption and Party", x="Media Consumption", y="Number of Respondents", fill="Vote Choice")+scale_fill_manual(
+    values = c("Donald Trump" = "firebrick", "Joe Biden" = "dodgerblue"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
