@@ -126,9 +126,14 @@ dem_lm_clean<-tidy(democrat_lm)|>
 ```{r}
 rep_lm_clean
 ```
+In this model, the intercept (baseline group) is Republican viewers who only watched Fox News. When republicans only watched Fox news, they had a 13.3% probability of voting for Joe Bien. When Republicans watched MSNBC only, they are .04 percentage points less likely to vote for Joe Biden and when they watch both Fox and MSNBC they are 2.1 percentage points more likely to vote for Joe Biden. 
+
 ```{r}
 dem_lm_clean
 ```
+In this model, the intercept (Baseline Group) is Democrat voters who only watched Fox News, and they have a 95.2% probability of voting for Joe Biden. When watching MSNBC only, they are 1.7 percentage points less likely to vote for Joe Biden. When watching both Fox and MSNBC, they are 3.9 percentage points less likely to vote for Joe Biden. 
+
+My hypothesis was that Republican and Democratic voters would vote opposite their party more if they watched both Fox and MSNBC compared to only Fox for Republicans and only MSNBC for Democrats. In the linear model for Republicans, while they had a higher probability to vote for Joe Biden when compared to only watching Fox, the P-Value of .488 suggests that it isn't statistically significant. However the P-value for Democrats who watch both MSNBC and Fox was 0.04, which is statistically significant suggesting there may be a relationship. 
 
 ```{r}
 ggplot(data=cleannews, aes(x=media, fill=pres2020vote))+geom_bar(position="dodge")+facet_wrap(~party)+theme_minimal()+theme(axis.text.x = element_text(angle = 45, hjust = 1))+labs(title="2020 Vote Choice by Media Consumption and Party", x="Media Consumption", y="Number of Respondents", fill="Vote Choice")+scale_fill_manual(
