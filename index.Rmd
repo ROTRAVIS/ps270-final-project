@@ -154,11 +154,15 @@ In this model, the **Baseline Group** is Republican viewers who only watched Fox
 dem_lm_clean
 ```
 
-In this model, the **Baseline Group** is Democrat viewers who only watched MSNBC. When Democrats only watched MSNBC, they had a **93.5%** probability of voting for Joe Biden. When watching **both MSNBC and Fox News**, Democrats were **2.2 percentage points less likely** to vote for Joe Biden. However, with a **P-Value of .348**, this result **was not** statistically significant and we fail to reject the null-hypothesis that news viewership does not influence voting. Likewise, the **Standard Error** for MSNBC/Fox was .023, which is larger than our estimate. Since it is larger, we can further conclude that while we may have seen a 2.2 percentage point decrease in Democrat's probability for voting for Donald Trump, it is not statistically significant. 
+In this model, the **Baseline Group** is Democrat viewers who only watched MSNBC. When Democrats only watched MSNBC, they had a **93.5%** probability of voting for Joe Biden. When watching **both MSNBC and Fox News**, Democrats were **2.2 percentage points less likely** to vote for Joe Biden. However, with a **P-Value of .348**, this result **was not** statistically significant and we fail to reject the null-hypothesis that news viewership does not influence voting. Likewise, the **Standard Error** for MSNBC/Fox was .023, which is larger than our estimate. Since it is larger, we can further conclude that while we may have seen a 2.2 percentage point decrease in Democrat's probability for voting for Joe Biden, it is not statistically significant. 
 
+## Conclusion
 
-
-
+  In summary, I found that Republicans who watched MSNBC and Fox were 2.1 percentage points more likely to vote for Joe Biden than Republicans who only watched Fox, 13.3% probability. However, with a p-value of .488, we fail to reject the null hypothesis that news consumption does not influence voting. Likewise, I found that Democrats who watched MSNBC and Fox were 2.2 percentage less likely to vote for Joe Biden than Democrats who only watched MSNBC, 93.5% probability. With a p-value of .348, we fail to reject the null hypothesis that news consumption does not influence voting. 
+  
+  There were several limitations and threats to interference in this project. First, there was a significant number of respondents who only listed one tv program compared to a significant number who listed the maximum of five. While this may be a true representation of the respondent, there is a chance that respondents who fell into the categories of Fox Only or MSNBC Only, did in fact watch both. Likewise, a confounding variable specific to this hypothesis would have been the respondents ideology on a scale. Whereas in this study, the party identification was binary, either Republican or Democrat, a moderate Democrat may watch both MSNBC and Fox because they are moderate and likewise may be more likely to vote for a Republican. I think this points to the possiblity of selection bias within the sample. 
+  
+  One way I would improve this variable is changing how the dependent variable was surveyed. The survey simply asked respondents whether or not they watched a specific news show. I think asking respondents to identify how much time they spend watching a specific news program would be better. For example, instead of a respondent saying they watched either a Fox News show or a MSNBC show, the respondent surveyed estimated how much total amount of their news consumption came from either network. 
 
 
 
