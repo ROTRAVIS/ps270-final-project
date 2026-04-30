@@ -1,7 +1,7 @@
 ---
-title: "PS270 Final Project"
+title: "The Impact of News Consumption on Voting Behavior"
 author: "Rogan Travis"
-description: "My final project"
+description: "MSNBC vs. Fox News"
 output:
   distill::distill_article:
     self_contained: false
@@ -9,7 +9,7 @@ output:
 
 ## Introduction
 
-In this project, I wanted to analyze the relationship between news consumption and voting behavior, specifically in the **2020 presidential election**. I did so by choosing two news netwowks, **MSNBC** for **Democrats** and **Fox News** for **Republicans**. I believe that Democrats and Republicans who watch both **MSNBC/Fox News** will be more likely to vote for the **opposite party** than Democrats who only watch MSNBC and Republicans who only watch Fox News. This is an interesting research question because it looks at the impact of watching a news network that may be less bias towards your respective party and analyzing whether that has an impact on who you vote for. In a world of ever growing polarization, this project offers an insight into the impact of news consumption. 
+In this project, I wanted to analyze the relationship between news consumption and voting behavior, specifically in the **2020 presidential election**. I did so by choosing two news networks, **MSNBC** for **Democrats** and **Fox News** for **Republicans**. I believe that Democrats and Republicans who watch both **MSNBC/Fox News** will be more likely to vote for the **opposite party** than Democrats who only watch MSNBC and Republicans who only watch Fox News. This is an interesting research question because it analyzes the impact of watching a news network that may be less bias towards your respective party and analyzing whether that has an impact on who you vote for. In a world of ever growing polarization, this project offers an insight into the impact of news consumption. 
 
 ```{r, echo=FALSE}
 library(tidyverse)
@@ -23,32 +23,41 @@ read.csv("anes_timeseries_2024_csv_20250808 2/anes_timeseries_2024_csv_20250808.
 
 ```{r, echo=FALSE}
 news<-news|>
- select("V241025","V241032","V241033", "V241039", "V241040", "V241104", "V241109", "V241179", "V241180", "V241108", "V241113", "V244055", "V244056", "V244057", "V244058", "V244059")|>
-  mutate(party_reg=V241025, dem_caucus_vote=V241032, rep_caucus_vote=V241033, `2024_pres_vote`=V241039, `2024_pref_cand_voted`=V241040, `2020_pres_vote`=V241104, dem_likenes=V241109, harris_iedology_scale=V241179, trump_ideology_scale=V241180, `2016_pres_vote`=V241108, rep_likeness=V241113, tv_programs_watched=V244055, tv_programs_watched2=V244056, tv_programs_watched3=V244057, tv_programs_watched4=V244058, tv_programs_watched5=V244059 )
+ select("V241025","V241032","V241033", "V241039", "V241040", "V241104", "V241109", "V241179", "V241180", "V241108", "V241113", "V244055", "V244056", "V244057", "V244058", "V244059", "V241004" )|>
+  mutate(party_reg=V241025, dem_caucus_vote=V241032, rep_caucus_vote=V241033, `2024_pres_vote`=V241039, `2024_pref_cand_voted`=V241040, `2020_pres_vote`=V241104, dem_likenes=V241109, harris_iedology_scale=V241179, trump_ideology_scale=V241180, `2016_pres_vote`=V241108, rep_likeness=V241113, tv_programs_watched=V244055, tv_programs_watched2=V244056, tv_programs_watched3=V244057, tv_programs_watched4=V244058, tv_programs_watched5=V244059, attention=V241004 )
 ```
 
 ```{r, echo=FALSE}
 news<-news|>
-select(party_reg, `2020_pres_vote`, tv_programs_watched, tv_programs_watched2, tv_programs_watched3, tv_programs_watched4, tv_programs_watched5)
+select(party_reg, `2020_pres_vote`, tv_programs_watched, tv_programs_watched2, tv_programs_watched3, tv_programs_watched4, tv_programs_watched5, attention)
 ```
 
 ```{r, echo=FALSE}
 news<-news|>
 mutate(pres2020vote= case_when(
 `2020_pres_vote`== 1~"Joe Biden",
-`2020_pres_vote`== 2~"Donald Trump"))|>
+`2020_pres_vote`== 2~"Donald Trump"))
+```
+```{r, echo=FALSE}
+news<-news|>
   drop_na(pres2020vote)
 ```
 
-### Data Source and Variables
-For this project, I used the **2024 Time Series Study from the American National Election Studies Series**. This data source was a survey based source comprised of 5521 respondents and over 1700 variables.The **dependent variable** of interest in my project is **vote**, which is a binary variable where **0=Donald Trump** and **1=Joe Biden** in the 2020 presidential election. The **independent variable** of interest in my project is the **media** variable, which is a categorical variable that classifies respondents into four categories: **Fox Only**, **MSNBC Only**, **Both**, or **Neither**. I will be testing this relationship by running a linear regression on both parties, by filtering the data source into **Republicans** and **Democrats**, using the variable `party`, which is a categorical variable for "Democrat" or "Republican". 
 
-```{r, echo=FALSE}
-news|>
-  ggplot(aes(x=pres2020vote, fill = pres2020vote))+geom_bar()+labs(title="Distribution of 2020 Presidential Vote", y="Count", x="Voter Choice")+theme_minimal()+theme(legend.position = "none")+scale_fill_manual(values = c("Donald Trump" = "firebrick", "Joe Biden" = "dodgerblue"))
-```
+### Data Source and Variables
+For this project, I did a cross-sectional design using data from the **2024 Time Series Study from the American National Election Studies Series**. This data source was a survey based source comprised of 5521 respondents and over 1700 variables.The **dependent variable** of interest in my project is **vote**, which is a binary variable where **0=Donald Trump** and **1=Joe Biden** in the 2020 presidential election. The **independent variable** of interest in my project is the **media** variable, which is a categorical variable that classifies respondents into four categories: **Fox Only**, **MSNBC Only**, **Both**, or **Neither**. I will be testing this relationship by running a linear regression on both parties, by filtering the data source into **Republicans** and **Democrats**, using the variable `party`, which is a categorical variable for "Democrat" or "Republican". 
+
 ### Criteria for Hypothesis
 In relation to this project, the **null hypothesis** would be that news consumption does not have a statistically significant effect on an individual's voting behavior. In order to reject the null hypothesis, that a mixed media consumption, watching both MSNBC and Fox News, results in an individual being more likely to vote for the opposite party, respective to their party identification, will require a **p-value<0.05**. 
+
+
+```{r, echo=FALSE}
+dependent<-news|>
+  ggplot(aes(x=pres2020vote, fill = pres2020vote))+geom_bar()+labs(title="Distribution of 2020 Presidential Vote", y="Count", x="Voter Choice")+theme_minimal()+theme(legend.position = "none")+scale_fill_manual(values = c("Donald Trump" = "firebrick", "Joe Biden" = "dodgerblue"))
+dependent
+```
+
+The plot above represents the dependent variable (**vote**) and its distribution in the data set. Roughly 2250 respondents voted for Joe Biden and roughly 1750 respondents voted for Donald Trump in our data set. 
 
 
 
@@ -99,6 +108,10 @@ ggplot(data=cleannews, aes(x=media, fill=pres2020vote))+geom_bar(position="dodge
     values = c("Donald Trump" = "firebrick", "Joe Biden" = "dodgerblue"))
 ```
 
+You can see from this graph that the largest number of both Democrats and Republicans who voted opposite their respective parties, came from the group who watched both MSNBC and Fox News. 
+
+
+
 ```{r, echo=FALSE}
 republican<-cleannews|>
   filter(party=="Republican")
@@ -112,9 +125,15 @@ democrat<-cleannews|>
 ```{r, echo=FALSE}
 cleannews$media <- as.factor(cleannews$media)
 cleannews$media <- relevel(cleannews$media, ref = "MSNBC Only")
+democrat<-cleannews|>
+  filter(party=="Democrat")
 ```
+
 ```{r, echo=FALSE}
 democrat_lm<-lm(data=democrat, vote~media)
+```
+```{r, echo=FALSE}
+republican_lm<-lm(data = republican, vote~media)
 ```
 
 
@@ -122,6 +141,7 @@ democrat_lm<-lm(data=democrat, vote~media)
 
 ```{r, echo=FALSE}
 republican_lm<-lm(data = republican, vote~media)
+
 ```
 ```{r, echo=FALSE}
 library(broom)
@@ -141,37 +161,49 @@ dem_lm_clean<-tidy(democrat_lm)|>
 
 ### Regression Outputs
 
-#### Republican Regression Output
+```{r, echo=FALSE}
+var_labels <- c("(Intercept)"="Intercept",
+"mediaFox Only" = "Fox News Only",
+"mediaMSNBC/FOX" = "MSNBC and Fox News",
+"mediaNEITHER" = "Neither",
+"mediaMSNBC Only" = "MSNBC Only"
+)
+```
 
 ```{r, echo=FALSE}
-rep_lm_clean
+regressiontable<-modelsummary::modelsummary(list("Republican Regression" = republican_lm, "Democrat Regression" = democrat_lm), 
+coef_map = var_labels, gof_map = c("nobs", "r.squared", "adj.r.squared"), statistic = c("s.e.={std.error}", "p={p.value}"))
+regressiontable
 ```
+
+
+#### Republican Regression Output
+
 In this model, the **Baseline Group** is Republican viewers who only watched Fox News. When Republicans only watched Fox News, they had a **13.3%** probability of voting for Joe Biden. When watching **both MSNBC and Fox News**, Republicans were **2.1 percentage points more likely** to vote for Joe Biden. However, with a **P-Value of .488**, this result **was not** statistically significant and we fail to reject the null hypothesis that news viewership does not influence voting. Likewise, the **Standard Error** for MSNBC/Fox was .031, which is larger than our estimate. Since it is larger, we can further conclude that while we may have seen a 2.1 percentage point increase in Republican's probability for voting for Joe Biden, it is not statistically significant. 
 
 #### Democrat Regression Output
 
-```{r, echo=FALSE}
-dem_lm_clean
-```
-
 In this model, the **Baseline Group** is Democrat viewers who only watched MSNBC. When Democrats only watched MSNBC, they had a **93.5%** probability of voting for Joe Biden. When watching **both MSNBC and Fox News**, Democrats were **2.2 percentage points less likely** to vote for Joe Biden. However, with a **P-Value of .348**, this result **was not** statistically significant and we fail to reject the null-hypothesis that news viewership does not influence voting. Likewise, the **Standard Error** for MSNBC/Fox was .023, which is larger than our estimate. Since it is larger, we can further conclude that while we may have seen a 2.2 percentage point decrease in Democrat's probability for voting for Joe Biden, it is not statistically significant. 
 
+#### Causality
+
+We should **not** interpret this relationship as a causal relationship. As discussed above, our p-values and standard error show that our results were **not statistically significant**. Secondly, confounding variables, such as **selection bias**, may be impacting the results. For example, in this project a respondent only had the option to identify as a Republican or a Democrat, when they may have been a moderate Republican or Democrat and therefore been more likely to vote either way or watch both news programs.   
+
 ## Conclusion
-
-  In summary, I found that Republicans who watched MSNBC and Fox were 2.1 percentage points more likely to vote for Joe Biden than Republicans who only watched Fox, 13.3% probability. However, with a p-value of .488, we fail to reject the null hypothesis that news consumption does not influence voting. Likewise, I found that Democrats who watched MSNBC and Fox were 2.2 percentage less likely to vote for Joe Biden than Democrats who only watched MSNBC, 93.5% probability. With a p-value of .348, we fail to reject the null hypothesis that news consumption does not influence voting. 
   
-  There were several limitations and threats to interference in this project. First, there was a significant number of respondents who only listed one tv program compared to a significant number who listed the maximum of five. While this may be a true representation of the respondent, there is a chance that respondents who fell into the categories of Fox Only or MSNBC Only, did in fact watch both. Likewise, a confounding variable specific to this hypothesis would have been the respondents ideology on a scale. Whereas in this study, the party identification was binary, either Republican or Democrat, a moderate Democrat may watch both MSNBC and Fox because they are moderate and likewise may be more likely to vote for a Republican. I think this points to the possiblity of selection bias within the sample. 
-  
-  One way I would improve this variable is changing how the dependent variable was surveyed. The survey simply asked respondents whether or not they watched a specific news show. I think asking respondents to identify how much time they spend watching a specific news program would be better. For example, instead of a respondent saying they watched either a Fox News show or a MSNBC show, the respondent surveyed estimated how much total amount of their news consumption came from either network. 
+In summary, I found that while both Republican and Democrats in this study were more likely to vote for the opposing party when watching both MSNBC and Fox News, these results were **not statistically significant**. Therefore, we failed to reject the null hypothesis that news consumption does not impact voting. There were several limitations and threats to interference in this project. First, there was a considerable number of respondents who only listed one TV program compared to a significant number who listed the maximum of five. While this may be a true representation of the respondent, there is a chance that respondents who fell into the categories of Fox Only or MSNBC Only, did in fact watch both. Likewise, a confounding variable specific to this hypothesis would have been selection bias. Whereas in this study, the party identification was binary, either Republican or Democrat, a moderate Democrat may watch both MSNBC and Fox because they are moderate and likewise may be more likely to vote for a Republican. 
+
+One way I would improve this project is by changing how the independent variable was surveyed. The survey simply asked respondents whether or not they watched a specific news program. I think asking respondents to identify how much time they spend watching a specific news program would be better. For example, instead of a respondent saying they watched either a Fox News program or a MSNBC program, the respondent surveyed estimated how much of their total news consumption came from a specific program. 
 
 
+#### AI Disclousure 
+
+I used AI to make my graphs looks cleaner. I used `theme_minimal()+theme(axis.text.x = element_text(angle = 45, hjust = 1))` to get rid of the grey background and tilt my x-axis labels so they didn't overlap. I also used the code chunk `cleannews$media <- as.factor(cleannews$media)cleannews$media <- relevel(cleannews$media, ref = "MSNBC Only")` so that the intercept of my Democrat regression was MSNBC. 
 
 
+```{r print-code, ref.label=knitr::all_labels(), echo = TRUE, eval=FALSE}
 
-
-
-
-
+```
 
 
 
