@@ -187,7 +187,7 @@ In this model, the **Baseline Group** is Democrat viewers who only watched MSNBC
 
 #### Causality
 
-We should **not** interpret this relationship as a causal relationship. As discussed above, our p-values and standard error show that our results were **not statistically significant**. Secondly, confounding variables, such as **selection bias**, may be impacting the results. For example, in this project a respondent only had the option to identify as a Republican or a Democrat, when they may have been a moderate Republican or Democrat and therefore been more likely to vote either way or watch both news programs.   
+We should **not** interpret this relationship as a causal relationship. As discussed above, our p-values and standard error show that our results were **not statistically significant**. Secondly, confounding variables, such as **selection bias**, may be impacting the results. For example, in this project a respondent only had the option to identify as a Republican or a Democrat, when they may have been a moderate Republican or moderate Democrat and therefore been more likely to vote opposite their party or watch both news programs.   
 
 ## Conclusion
   
